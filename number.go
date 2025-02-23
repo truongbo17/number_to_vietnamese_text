@@ -31,32 +31,32 @@ const (
 )
 
 type NumberToVietnameseWordOption struct {
-	money       bool
-	formatMoney FormatMoney
-	ucFirst     bool
+	Money       bool
+	FormatMoney FormatMoney
+	UcFirst     bool
 }
 
 type NumberToVietnameseWord struct {
-	number  int64
-	options NumberToVietnameseWordOption
+	Number  int64
+	Options NumberToVietnameseWordOption
 }
 
 func (n *NumberToVietnameseWord) Convert() string {
-	words := ToVietnameseWords(n.number)
-	if n.options.ucFirst {
+	words := ToVietnameseWords(n.Number)
+	if n.Options.UcFirst {
 		words = capitalize(words)
 	}
 
-	if n.options.formatMoney == VND {
+	if n.Options.FormatMoney == VND {
 		return words + VNDWord
 	}
-	if n.options.formatMoney == VNDFull {
+	if n.Options.FormatMoney == VNDFull {
 		return words + VNDFullWord
 	}
-	if n.options.formatMoney == VNDShort {
+	if n.Options.FormatMoney == VNDShort {
 		return words + VNDShortWord
 	}
-	if n.options.formatMoney == USD {
+	if n.Options.FormatMoney == USD {
 		return words + USDWord
 	}
 

@@ -25,10 +25,10 @@ func main() {
 	// With struct options
 	number := int64(123456789)
 	num := NumberToVietnameseWord{
-		number: n,
-		options: NumberToVietnameseWordOption{
-			ucFirst:     true,
-			formatMoney: VNDFull,
+		Number: number,
+		Options: NumberToVietnameseWordOption{
+			UcFirst:     true,
+			FormatMoney: VNDFull,
 		},
 	}
 	num.Convert()

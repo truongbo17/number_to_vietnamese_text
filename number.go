@@ -3,6 +3,7 @@ package number_to_vietnamese_text
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -19,7 +20,7 @@ type FormatMoney string
 const (
 	VNDFull  FormatMoney = "VNDFull"
 	VNDShort FormatMoney = "VNDShort"
-	VND                  = "VND"
+	VND      FormatMoney = "VND"
 	USD      FormatMoney = "USD"
 )
 
@@ -37,12 +38,18 @@ type NumberToVietnameseWordOption struct {
 }
 
 type NumberToVietnameseWord struct {
-	Number  int64
+	Number  float64
 	Options NumberToVietnameseWordOption
 }
 
 func (n *NumberToVietnameseWord) Convert() string {
-	words := ToVietnameseWords(n.Number)
+	integerPart, decimalPart := splitFloat(n.Number)
+
+	words := ToVietnameseWords(integerPart)
+	if decimalPart != "" {
+		words += " phẩy " + readDecimal(decimalPart)
+	}
+
 	if n.Options.UcFirst {
 		words = capitalize(words)
 	}
@@ -150,6 +157,21 @@ func ToVietnameseWords(number int64) string {
 		}
 	}
 
-	re := regexp.MustCompile(`\s+`)
+	re := regexp.MustCompile(`\\s+`)
 	return strings.TrimSpace(re.ReplaceAllString(result, " "))
+}
+
+func splitFloat(number float64) (int64, string) {
+	parts := strings.Split(fmt.Sprintf("%.10f", number), ".")
+	integerPart, _ := strconv.ParseInt(parts[0], 10, 64)
+	decimalPart := strings.TrimRight(parts[1], "0")
+	return integerPart, decimalPart
+}
+
+func readDecimal(decimalPart string) string {
+	var words []string
+	for _, digit := range decimalPart {
+		words = append(words, digits[digit-'0'])
+	}
+	return strings.Join(words, " ")
 }

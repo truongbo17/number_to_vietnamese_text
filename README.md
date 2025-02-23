@@ -23,7 +23,7 @@ import (
 
 func main() {
 	// With struct options
-	number := int64(123456789)
+	number := 123456789.003
 	num := NumberToVietnameseWord{
 		Number: number,
 		Options: NumberToVietnameseWordOption{
@@ -32,11 +32,11 @@ func main() {
 		},
 	}
 	num.Convert()
-	// => Một trăm hai mươi ba triệu bốn trăm năm mươi sáu nghìn bảy trăm tám mươi chín việt nam đồng
+	// => Một trăm hai mươi ba triệu bốn trăm năm mươi sáu nghìn bảy trăm tám mươi chín phẩy không không ba việt nam đồng
 
 	// Or simple
 	ToVietnameseWords(123456789)
-	// => Một trăm hai mươi ba triệu bốn trăm năm mươi sáu nghìn bảy trăm tám mươi chín
+	// => Một trăm hai mươi ba triệu bốn trăm năm mươi sáu nghìn bảy trăm tám mươi chín phẩy không không ba
 
 }
 ```

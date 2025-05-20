@@ -35,6 +35,8 @@ func TestNumberToVietnameseWord_Convert(t *testing.T) {
 		{NumberToVietnameseWord{123, NumberToVietnameseWordOption{false, VND, false}}, "một trăm hai mươi ba VND"},
 		{NumberToVietnameseWord{5000, NumberToVietnameseWordOption{true, VNDFull, true}}, "Năm nghìn việt nam đồng"},
 		{NumberToVietnameseWord{1000000, NumberToVietnameseWordOption{false, USD, false}}, "một triệu USD"},
+		{NumberToVietnameseWord{-300000, NumberToVietnameseWordOption{false, VNDFull, true}}, "Âm ba trăm nghìn việt nam đồng"},
+		{NumberToVietnameseWord{300000, NumberToVietnameseWordOption{false, VNDFull, true}}, "Ba trăm nghìn việt nam đồng"},
 		{NumberToVietnameseWord{1000000.0003, NumberToVietnameseWordOption{false, USD, false}}, "một triệu phẩy không không không ba USD"},
 		{NumberToVietnameseWord{349300.0003, NumberToVietnameseWordOption{false, VNDFull, false}}, "ba trăm bốn mươi chín nghìn ba trăm phẩy không không không ba việt nam đồng"},
 	}

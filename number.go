@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 var digits = []string{
@@ -74,7 +75,9 @@ func capitalize(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
-	return strings.ToUpper(s[:1]) + s[1:]
+	runes := []rune(s)
+	runes[0] = unicode.ToUpper(runes[0])
+	return string(runes)
 }
 
 func readPair(b, c int) string {
@@ -153,7 +156,7 @@ func ToVietnameseWords(number int64) string {
 		idx := len(groups) - 1 - i
 		part := readTriple(g, showZeroHundred && i > 0)
 		if part != "" {
-			result += part + " " + multipleThousand[idx] + " "
+			result += strings.TrimSpace(part) + " " + multipleThousand[idx] + " "
 		}
 	}
 
